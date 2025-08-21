@@ -10,6 +10,8 @@
 
 ### 💡 Others
 
+- Remove unused `@babel/runtime` dependency from CLI
+
 ## 0.26.1 — 2025-08-21
 
 ### 💡 Others

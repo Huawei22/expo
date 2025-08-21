@@ -10,6 +10,8 @@
 
 ### 💡 Others
 
+- Set default `enableBabelRuntime` minimum Babel runtime version to the project's installed version, if any
+
 ## 0.21.4 — 2025-08-21
 
 ### 🐛 Bug fixes
