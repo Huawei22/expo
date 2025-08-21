@@ -15,6 +15,9 @@ i18n.translations = {
   es: {
     phrase: 'Hola mi amigo',
   },
+  hi: {
+    phrase: 'नमस्ते मेरे दोस्त',
+  },
 };
 
 function HooksLocalizationSection() {
@@ -46,7 +49,30 @@ export default function LocalizationScreen() {
         <HeadingText>Calendars in Preference Order</HeadingText>
         <MonoText>{JSON.stringify(Localization.getCalendars(), null, 2)}</MonoText>
 
+        <HeadingText>Internationalization Demo</HeadingText>
+        <MonoText>
+          Current phrase: "{i18n.t('phrase')}"
+        </MonoText>
+        <MonoText>
+          Current greeting: "{i18n.t('greeting')}"
+        </MonoText>
+        <MonoText>
+          Supported languages: {Object.keys(i18n.translations).join(', ')}
+        </MonoText>
+
         <HeadingText>Localization Table</HeadingText>
+        <MonoText>
+          {JSON.stringify(
+            {
+              currentLocale: i18n.locale,
+              currentPhrase: i18n.t('phrase'),
+              fallbackPhrase: i18n.t('default'),
+              supportedLanguages: Object.keys(i18n.translations),
+            },
+            null,
+            2
+          )}
+        </MonoText>
       </View>
     </ScrollView>
   );
