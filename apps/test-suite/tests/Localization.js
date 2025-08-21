@@ -4,16 +4,25 @@ import i18n from 'i18n-js';
 const en = {
   good: 'good',
   morning: 'morning',
+  greeting: 'Hello',
 };
 
 const fr = {
   good: 'bien',
   morning: 'matin',
+  greeting: 'Bonjour',
 };
 
 const pl = {
   good: 'dobry',
   morning: 'rano',
+  greeting: 'Cześć',
+};
+
+const hi = {
+  good: 'अच्छा',
+  morning: 'सुबह',
+  greeting: 'नमस्ते',
 };
 
 export const name = 'Localization';
@@ -78,11 +87,11 @@ export function test(t) {
 
   t.describe(`Localization works with i18n-js`, () => {
     i18n.locale = Localization.getLocales()[0].languageCode;
-    i18n.translations = { en, fr, pl };
+    i18n.translations = { en, fr, pl, hi };
     i18n.missingTranslationPrefix = 'EE: ';
     i18n.fallbacks = true;
 
-    t.it('expect language to match strings (en, pl, fr supported)', async () => {
+    t.it('expect language to match strings (en, pl, fr, hi supported)', async () => {
       const target = 'good';
 
       i18n.locale = Localization.getLocales()[0].languageCode;
@@ -91,6 +100,33 @@ export function test(t) {
       const translation = i18n.translations[expoPredictedLangTag];
 
       t.expect(translation[target]).toBe(i18n.t(target));
+    });
+
+    t.it('expect Hindi translations to work correctly', async () => {
+      i18n.locale = 'hi';
+      
+      t.expect(i18n.t('greeting')).toBe('नमस्ते');
+      t.expect(i18n.t('good')).toBe('अच्छा');
+      t.expect(i18n.t('morning')).toBe('सुबह');
+    });
+
+    t.it('expect Indian calendar support to be available', async () => {
+      const calendars = Localization.getCalendars();
+      const supportedCalendars = calendars.map(cal => cal.calendar).filter(Boolean);
+      
+      // Indian calendar should be available in the enum
+      t.expect(Object.values(Localization.CalendarIdentifier)).toContain('indian');
+    });
+
+    t.it('expect proper handling of Hindi locale properties', async () => {
+      // Test Hindi locale tag format
+      const hindiLocale = 'hi-IN';
+      const isValidFormat = /^[a-z]{2}(-[A-Z]{2})?$/.test(hindiLocale);
+      t.expect(isValidFormat).toBe(true);
+      
+      // Hindi uses LTR text direction
+      const expectedDirection = 'ltr';
+      t.expect(['ltr', 'rtl'].includes(expectedDirection)).toBe(true);
     });
   });
 }

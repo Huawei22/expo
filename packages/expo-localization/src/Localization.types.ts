@@ -14,7 +14,7 @@ export type Locale = {
   /**
    * An [ISO 15924](https://en.wikipedia.org/wiki/ISO_15924) 4-letter script code. On Android and Web, it may be `null` if none is defined.
    * @example
-   * `'Latn'`, `'Hans'`, `'Hebr'`.
+   * `'Latn'`, `'Hans'`, `'Hebr'`, `'Deva'` (Devanagari for Hindi).
    */
   languageScriptCode: string | null;
   /**
